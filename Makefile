@@ -1,4 +1,4 @@
-PROJECT=c202
+PROJECT=c206
 TESTS=$(PROJECT)-test $(PROJECT)-test-advanced
 TEST_OUTPUTS=$(PROJECT)-test.out $(PROJECT)-test-advanced.out
 PROG=$(PROJECT)-test
@@ -33,6 +33,16 @@ zadani: $(PROJECT)-test.out
 	@mkdir $@ 2>/dev/null || echo "Directory exists, continuing"
 	@unifdef -DSTUDENT_BUILD=1 -o $@/$(PROJECT).c $(PROJECT).c || printf ""
 	@cp $(PROJECT).h $@/
+	@cp $(PROG).c $@/
+	@cp $(PROJECT)-test-utils.* $@/
+	@cp $(PROJECT)-test.out $@/
+	@cp Makefile $@/
+	@tar -czvf $(PROJECT)-`date +%Y-%m-%d-%H-%M`.tar.gz $@/*
+
+zadani-en: $(PROJECT)-test.out
+	@mkdir $@ 2>/dev/null || echo "Directory exists, continuing"
+	@unifdef -DSTUDENT_BUILD=1 -o $@/$(PROJECT).c $(PROJECT).en.c || printf ""
+	@cp $(PROJECT).en.h $@/$(PROJECT).h
 	@cp $(PROG).c $@/
 	@cp $(PROJECT)-test-utils.* $@/
 	@cp $(PROJECT)-test.out $@/
